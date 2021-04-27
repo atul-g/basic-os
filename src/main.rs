@@ -24,7 +24,13 @@ pub extern "C" fn _start() -> ! {
     test_main();
 
     println!("It did not crash!");
-    loop {}
+    // provoking a deadlock and testing it works
+    //loop {
+    //    use basic_rust_os::print;
+    //    for _ in 0..10000 {}
+    //    print!("-");
+    //}
+    basic_rust_os::hlt_loop();
 }
 
 /// This function is called on panic.
@@ -32,7 +38,7 @@ pub extern "C" fn _start() -> ! {
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    basic_rust_os::hlt_loop();
 }
 
 #[cfg(test)]
